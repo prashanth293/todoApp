@@ -1,28 +1,67 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import TodoListItem from "./components/todoListItem/todoListItem";
+import Footer from "./components/footer/footer";
+import { addTodos } from "./store/action";
+import "./App.css";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      todosList: []
+    };
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
+  }
+  handleOnSubmit(e) {
+    e.preventDefault();
+    const { inputValue } = this.state;
+    const { fnAddTodos } = this.props;
+    if (!inputValue) {
+      //have to write error handlers
+      return;
+    }
+    const todo = { title: inputValue, completed: false };
+    fnAddTodos(todo);
+    this.setState({ inputValue: "" });
+  }
+  handleOnChange(e) {
+    this.setState({ inputValue: e.target.value });
+  }
   render() {
+    const { inputValue } = this.state;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="app">
+        <form className="full-todo-list" onSubmit={this.handleOnSubmit}>
+          <input
+            id="todoTitle"
+            className="add-todo-list"
+            type="text"
+            placeholder="what todo"
+            onChange={this.handleOnChange}
+            value={inputValue}
+          />
+        </form>
+        <TodoListItem />
+        <Footer />
       </div>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  fnAddTodos: PropTypes.func
+};
+
+const mapDispatchToProps = dispatch => ({
+  fnAddTodos: data => dispatch(addTodos(data))
+});
+
+const withConnect = connect(
+  null,
+  mapDispatchToProps
+);
+
+export default withConnect(App);
