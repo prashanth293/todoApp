@@ -9,5 +9,21 @@
   line-height: 1.4em;
   padding: 16px 16px 16px 60px;
   background: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.filter-btn {
+  background: none;
+  outline: none;
+  border: none;
+}
+
+.filter-btn:hover {
+  border: 0.5px solid rosybrown;
+  border-radius: 5px;
+}
+
+.filter-btn-active {
+  border: 0.5px solid #f09b9b;
+  border-radius: 5px;
 }

@@ -1,30 +1,40 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { cx } from "emotion";
 import { ALL, COMPLETED, ACTIVE } from "../../constants";
 import { visibilityFilter } from "../../store/action";
 import "./footer.css";
 
 class footer extends React.Component {
   render() {
-    const { fnVisibilityFilter, todosList } = this.props;
+    const { fnVisibilityFilter, todosList, filteredType } = this.props;
     const TotalActiveTodos = todosList.filter(item => !item.completed).length;
     if (!todosList.length) {
       return null;
     }
     return (
       <div className="footer">
-        <button className="filter-btn" onClick={() => fnVisibilityFilter(ALL)}>
+        <button
+          className={cx("filter-btn", {
+            "filter-btn-active": filteredType === ALL
+          })}
+          onClick={() => fnVisibilityFilter(ALL)}
+        >
           {ALL}
         </button>
         <button
-          className="filter-btn"
+          className={cx("filter-btn", {
+            "filter-btn-active": filteredType === ACTIVE
+          })}
           onClick={() => fnVisibilityFilter(ACTIVE)}
         >
           {ACTIVE}
         </button>
         <button
-          className="filter-btn"
+          className={cx("filter-btn", {
+            "filter-btn-active": filteredType === COMPLETED
+          })}
           onClick={() => fnVisibilityFilter(COMPLETED)}
         >
           {COMPLETED}
@@ -50,7 +60,8 @@ footer.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  todosList: state.todosList
+  todosList: state.todosList,
+  filteredType: state.filteredType
 });
 const mapDispatchToProps = dispatch => ({
   fnVisibilityFilter: data => dispatch(visibilityFilter(data))
