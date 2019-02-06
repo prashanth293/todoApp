@@ -3,10 +3,18 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { cx } from "emotion";
 import { removeTodos, toggleTodos } from "../../store/action";
-import { getTodosByVisibilityFilter } from "../../utils";
+import { getTodosByVisibilityFilter, setLocalStorage } from "../../utils";
 import "./todoListItem.css";
 
 class todoListItem extends React.PureComponent {
+  componentDidUpdate(prevProps) {
+    if (
+      JSON.stringify(prevProps.todosList) !==
+      JSON.stringify(this.props.todosList)
+    ) {
+      setLocalStorage("todosList", this.props.todosList);
+    }
+  }
   render() {
     const {
       todosList,

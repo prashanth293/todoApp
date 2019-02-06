@@ -1,7 +1,11 @@
 import { combineReducers } from "redux";
 import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO, FILTTER_TODO } from "../constants";
-
-const todosList = (state = [], action) => {
+import { getLocalStorage } from "../../utils";
+const INITIAL_STATE = {
+  todosList: getLocalStorage("todosList") || [],
+  filteredType: "all"
+};
+const todosList = (state = INITIAL_STATE.todosList, action) => {
   switch (action.type) {
     case ADD_TODO:
       return [...state, action.data];
@@ -23,7 +27,7 @@ const todosList = (state = [], action) => {
   }
 };
 
-const filteredType = (state = "all", action) => {
+const filteredType = (state = INITIAL_STATE.filteredType, action) => {
   if (action.type === FILTTER_TODO) {
     return action.data;
   }
