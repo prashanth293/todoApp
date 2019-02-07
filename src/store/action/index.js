@@ -1,4 +1,10 @@
-import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO, FILTTER_TODO } from "../constants";
+import {
+  ADD_TODO,
+  REMOVE_TODO,
+  REMOVE_COMPLETED_TODO,
+  TOGGLE_TODO,
+  FILTTER_TODO
+} from "../constants";
 let nextId = 0;
 export const addTodos = data => ({
   type: ADD_TODO,
@@ -7,6 +13,9 @@ export const addTodos = data => ({
 export const removeTodos = data => ({
   type: REMOVE_TODO,
   data
+});
+export const removeCompletedTodos = () => ({
+  type: REMOVE_COMPLETED_TODO
 });
 export const toggleTodos = data => ({
   type: TOGGLE_TODO,

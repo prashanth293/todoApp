@@ -28,17 +28,29 @@
   right: 10px;
   background: none;
   color: red;
+  opacity: 0.5;
   font-size: 24px;
   border: none;
   display: none;
 }
 
+.remove-todo-btn:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
 .toggle-todo {
   position: absolute;
   left: 10px;
+  cursor: pointer;
 }
 
 .completed-todo {
   text-decoration: line-through;
   opacity: 0.3;
+}
+
+.todo-label {
+  width: 100%;
+  cursor: pointer;
 }

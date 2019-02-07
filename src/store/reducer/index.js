@@ -1,5 +1,11 @@
 import { combineReducers } from "redux";
-import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO, FILTTER_TODO } from "../constants";
+import {
+  ADD_TODO,
+  REMOVE_TODO,
+  TOGGLE_TODO,
+  FILTTER_TODO,
+  REMOVE_COMPLETED_TODO
+} from "../constants";
 import { getLocalStorage } from "../../utils";
 const INITIAL_STATE = {
   todosList: getLocalStorage("todosList") || [],
@@ -22,6 +28,10 @@ const todosList = (state = INITIAL_STATE.todosList, action) => {
         return item;
       });
       return toggledTodoList;
+    case REMOVE_COMPLETED_TODO:
+      return state.filter(item => {
+        return !item.completed;
+      });
     default:
       return state;
   }

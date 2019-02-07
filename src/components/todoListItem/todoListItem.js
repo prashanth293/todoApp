@@ -41,7 +41,9 @@ class todoListItem extends React.PureComponent {
                 className="toggle-todo"
                 checked={item.completed}
               />
-              <label htmlFor={`checkbox-${index}`}>{item.title}</label>
+              <label className="todo-label" htmlFor={`checkbox-${index}`}>
+                {item.title}
+              </label>
               <button
                 className="remove-todo-btn"
                 onClick={e => fnRemoveTodos(item.id)}
