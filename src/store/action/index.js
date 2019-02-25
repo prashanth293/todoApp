@@ -5,10 +5,11 @@ import {
   TOGGLE_TODO,
   FILTTER_TODO
 } from "../constants";
-let nextId = 0;
+const generateRandomNumber = () => Math.floor(Math.random() * 1e16);
+
 export const addTodos = data => ({
   type: ADD_TODO,
-  data: { id: ++nextId, ...data }
+  data: { id: generateRandomNumber(), ...data }
 });
 export const removeTodos = data => ({
   type: REMOVE_TODO,
